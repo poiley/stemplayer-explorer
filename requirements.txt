@@ -1,0 +1,10 @@
+distlib==0.3.4
+filelock==3.6.0
+platformdirs==2.5.1
+PyQt5==5.15.6
+PyQt5-Qt5==5.15.2
+PyQt5-sip==12.9.1
+pywin32==303
+six==1.16.0
+virtualenv==20.13.1
+WMI==1.5.1
