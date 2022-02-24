@@ -12,9 +12,13 @@ class main_window(QWidget):
         super().__init__()
         self.initUI()
         self.device_selection()
-
+    
+    def wipe_layout(self):
+        for i in reversed(range(self.grid.count())): 
+            self.grid.itemAt(i).widget().setParent(None)
+    
     def initUI(self):
-        self.setGeometry(300, 300, 400, 300)
+        self.setGeometry(500, 500, 600, 500)
         self.setWindowTitle('Stem Player Explorer')
         self.grid = QGridLayout()
         self.setLayout(self.grid)        
@@ -26,8 +30,9 @@ class main_window(QWidget):
         self.grid.addWidget(self.label_devices, 0, 0)
 
         DEVICES = get_devices()
-
-        if len(DEVICES) == 1:
+        if not DEVICES:
+            self.label_devices.setText('No Device Found')
+        elif len(DEVICES) == 1:
             self.device_selected(DEVICES[0])
         else:
             button_row = 1
@@ -37,19 +42,48 @@ class main_window(QWidget):
                 self.grid.addWidget(device_button, button_row, 1)
                 button_row += 1
 
-    def wipe_layout(self):
-        for i in reversed(range(self.grid.count())): 
-            self.grid.itemAt(i).widget().setParent(None)
+    def tool(self):
+        self.title = QLabel('Device in use: Stem Player [{}]'.format(self.device.VolumeSerialNumber))
+        self.title.setFont(QFont('Avant Garde', 15))
+        self.grid.addWidget(self.title, 0, 0)
 
+        self.player = stem_player(self.device)
+        
+        self.album_grid = QGridLayout()
+        row = 0
+        for i, album in enumerate(self.player.library.albums):
+            album_item = QRadioButton(album.metadata['title'], self)
+            album_item.toggled.connect(lambda checked, i=i: self.album_selected(self.player.library.albums[i].dir))
+            self.album_grid.addWidget(album_item, 0, row)
+            row += 1
+        self.grid.addLayout(self.album_grid, 0, 1)
+
+        self.album_info = QLabel('', self)
+        self.album_info.setWordWrap(True)
+        self.album_info.setFixedWidth(300)
+        self.album_info.setFont(QFont('Avant Garde', 12))
+
+        self.track_info = QLabel('', self)
+        self.track_info.setWordWrap(True)
+        self.track_info.setFixedWidth(300)
+        self.track_info.setFont(QFont('Avant Garde', 12))
+
+        self.grid.addWidget(self.album_info, 1, 0)
+        self.grid.addWidget(self.track_info, 1, 1)
+    
     @pyqtSlot()
     def device_selected(self, device):
         self.device = device
-        print('Device Selected: {}'.format(self.device))
         self.wipe_layout()
         self.tool()
 
-    def tool(self):
-        self.title = QLabel('Device in use: Stem Player [{}]'.format(self.device.VolumeSerialNumber))
-        self.title.setFont(QFont('Avant Garde', 16))
-        self.grid.addWidget(self.title, 0, 0)
-        player = stem_player(self.device)
+    @pyqtSlot()
+    def album_selected(self, album):
+        album_obj = self.player.library.get_album(album)
+        tracks_obj = album_obj.tracks
+        track_info_text = ''
+        for track in tracks_obj:
+            track_info_text += ' - {}\n'.format(track)
+
+        self.album_info.setText(str(album_obj.metadata))
+        self.track_info.setText(track_info_text)

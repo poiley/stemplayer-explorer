@@ -17,14 +17,14 @@ def get_devices():
         print('OS Detected: macOS')
     elif os_str == 'Linux':
         print('OS Detected: Linux')
-        df = subprocess.check_output("lsusb")
-        for i in df.split(b'\n'):
-            if i:
-                info = device_re.match(i)
+        for usb_device in subprocess.check_output("lsusb").split(b'\n'):
+            if usb_device:
+                info = device_re.match(usb_device)
                 if info:
                     dinfo = info.groupdict()
                     dinfo['device'] = '/dev/bus/usb/%s/%s' % (dinfo.pop('bus'), dinfo.pop('device'))
-                    devices.append(dinfo)
+                    if dinfo['id'] == '1209:572a':
+                        devices.append(dinfo)
         print(devices)
     else:
         print('Unable to detect OS')
