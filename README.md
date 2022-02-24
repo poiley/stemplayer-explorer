@@ -2,4 +2,4 @@
 
 ## Usage
 
-Use python version 3.9.6
+Use python version 3.10.2

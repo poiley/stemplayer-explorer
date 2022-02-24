@@ -83,7 +83,7 @@ class main_window(QWidget):
         tracks_obj = album_obj.tracks
         track_info_text = ''
         for track in tracks_obj:
-            track_info_text += ' - {}\n'.format(track)
+            track_info_text += ' - {}\n'.format(track.metadata['metadata']['title'])
 
         self.album_info.setText(str(album_obj.metadata))
         self.track_info.setText(track_info_text)

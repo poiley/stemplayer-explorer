@@ -12,7 +12,7 @@ def get_devices():
 
     if os_str == 'Windows':
         print('OS Detected: Windows')
-        return wmi.WMI().Win32_LogicalDisk(VolumeName="STEM PLAYER")
+        devices = wmi.WMI().Win32_LogicalDisk(VolumeName="STEM PLAYER")
     elif os_str == 'Darwin':
         print('OS Detected: macOS')
     elif os_str == 'Linux':
@@ -25,9 +25,9 @@ def get_devices():
                     dinfo['device'] = '/dev/bus/usb/%s/%s' % (dinfo.pop('bus'), dinfo.pop('device'))
                     if dinfo['id'] == '1209:572a':
                         devices.append(dinfo)
-        print(devices)
     else:
         print('Unable to detect OS')
+    return devices
 
 def get_config(drive):
     if os_str == 'Windows':
