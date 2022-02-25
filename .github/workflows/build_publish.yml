@@ -24,7 +24,7 @@ jobs:
             TARGET: windows
             CMD_BUILD: pyinstaller -F -n stemplayer-explorer -D main.py
             OUT_FILE_NAME: stemplayer-explorer.exe
-		  - os: ubuntu-latest
+          - os: ubuntu-latest
             TARGET: ubuntu
             CMD_BUILD: pyinstaller -F -n stemplayer-explorer -D main.py
             OUT_FILE_NAME: stemplayer-explorer
