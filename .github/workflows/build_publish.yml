@@ -1,4 +1,4 @@
-name: Package Application with Pyinstaller for Windows
+name: Package Application with Pyinstaller
 
 on:
   push:
@@ -29,7 +29,7 @@ jobs:
             CMD_BUILD: |
               sudo apt-get install python3 python3-dev xcb python3-pyqt5 pyqt5-dev pyqt5-dev-tools -y
               pyinstaller -F -n stemplayer-explorer -D main.py
-            OUT_FILE_NAME: stemplayer-explorer
+            OUT_FILE_NAME: ""
 
     steps:
     - uses: actions/checkout@v2
@@ -38,7 +38,7 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.10.2
-    - name: Install dependencies
+    - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r src/requirements.txt
