@@ -49,8 +49,9 @@ jobs:
             TARGET_FORMATTED: Windows
             CMD_BUILD: |
                 pyinstaller -F -n stemplayer-explorer -D main.py
-                cd dist\stemplayer-explorer
-                tar.exe -a -c -f .\stemplayer-explorer-windows.zip *
+                cd dist
+                tar.exe -a -c -f stemplayer-explorer-windows.zip stemplayer-explorer\*
+                move stemplayer-explorer-windows.zip .\stemplayer-explorer\stemplayer-explorer-windows.zip
             OUT_FILE_NAME: stemplayer-explorer-windows.zip
           - os: ubuntu-latest
             TARGET: linux
