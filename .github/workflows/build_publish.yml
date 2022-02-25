@@ -13,19 +13,19 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: macos-latest
-            TARGET: macos
-            CMD_BUILD: >
-                pyinstaller -F -n stemplayer-explorer -D main.py &&
-                cd ../dist/ &&
-                zip -r9 stemplayer-explorer stemplayer-explorer.app/
-            OUT_FILE_NAME: stemplayer-explorer.zip
-          - os: windows-latest
-            TARGET: windows
-            CMD_BUILD: pyinstaller -F -n stemplayer-explorer -D main.py
-            OUT_FILE_NAME: stemplayer-explorer.exe
+          # - os: macos-latest
+          #   TARGET: macos
+          #   CMD_BUILD: >
+          #       pyinstaller -F -n stemplayer-explorer -D main.py &&
+          #       cd ../dist/ &&
+          #       zip -r9 stemplayer-explorer stemplayer-explorer.app/
+          #   OUT_FILE_NAME: stemplayer-explorer.zip
+          # - os: windows-latest
+          #   TARGET: windows
+          #   CMD_BUILD: pyinstaller -F -n stemplayer-explorer -D main.py
+          #   OUT_FILE_NAME: stemplayer-explorer.exe
           - os: ubuntu-latest
-            TARGET: ubuntu
+            TARGET: linux
             CMD_BUILD: pyinstaller -F -n stemplayer-explorer -D main.py
             OUT_FILE_NAME: stemplayer-explorer
 
@@ -41,10 +41,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r src/requirements.txt
     - name: Build with pyinstaller for ${{ matrix.TARGET }}
-      run: cd src ; ${{ matrix.CMD_BUILD }}
+      run: cd src ; ${{ matrix.CMD_BUILD }} ; ls src/dist
     - uses: actions/upload-artifact@v2
       with:
-        name: stemplayer-explorer
+        name: stemplayer-explorer-${{ matrix.TARGET }}
         path: src/dist/${{ matrix.OUT_FILE_NAME }}
 
     # - name: Load Release URL File from release job
