@@ -45,7 +45,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: stemplayer-explorer
-        path: ./dist/${{ matrix.OUT_FILE_NAME }}
+        path: src/dist/${{ matrix.OUT_FILE_NAME }}
 
     # - name: Load Release URL File from release job
     #   uses: actions/download-artifact@v1
