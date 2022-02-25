@@ -73,7 +73,6 @@ jobs:
       run: |
         cd src
         ${{ matrix.CMD_BUILD }} 
-        chmod +x dist/stemplayer-explorer/${{ matrix.OUT_FILE_NAME }}
     - uses: actions/upload-artifact@v2
       with:
         name: stemplayer-explorer-${{ matrix.TARGET }}
