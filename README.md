@@ -1,4 +1,4 @@
-# stemplayer-explorer
+# ![Stem Player Icon](/docs/img/stemplayer_25px.png) stemplayer-explorer
 
 ## :newspaper: Stem Player & Stem Player Explorer
 
