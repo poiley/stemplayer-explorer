@@ -5,7 +5,7 @@ def main():
     ui = main_window()
     ui.show()
 
-    sys.exit(app.exec_())
+    app.exec_()
 
 if __name__ == '__main__':
     main()
