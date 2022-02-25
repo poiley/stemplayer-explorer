@@ -17,13 +17,13 @@ The Stem Player Explorer is a multi-platform desktop application written in Pyth
 
 ## :black_nib: Usage
 
-With the Stem Player disconnected, power it off. Plug the Stem Player in and while holding the central play/pause button, power it on. This will allow the Stem Player to be mounted as a file system.
+With the Stem Player disconnected, power it off. Plug the Stem Player in and while holding the central play/pause button, then power it on. This will allow the Stem Player to be mounted as a readable and writable file system.
 
-From there, the app will detect the Stem Player automatically and load its filesystem. If there is more than one Stem Player connected upon application start, select the desired device from the list by serial number.
+From there, the app will detect the Stem Player automatically and load the device contents. If there is more than one Stem Player connected upon application start, select the desired device from the list by serial number (Windows) or mount directory (Linux/MacOS).
 
 ## :inbox_tray: Installation
 
-This app was developed using Python v3.10.2. Create a virtual environment and install required packages by running:
+This app was developed using Python v3.10.2. Create a virtual environment by using that version of Python, installing the `virtualenv` pip, and install required packages by running:
 
 ```bash
 # Create a Virtual Environment
