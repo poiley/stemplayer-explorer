@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build packages for MacOS, Windows, & Linux
+    name: Build packages for ${{ matrix.TARGET_FORMATTED }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
