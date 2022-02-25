@@ -2,7 +2,7 @@
 
 ## :newspaper: Stem Player & Stem Player Explorer
 
-**Per the Stem Player website:**
+### **Per the Stem Player website:**
 
 |                **FEATURES**                   | **SPECS**                       |
 |-----------------------------------------------|---------------------------------|
@@ -12,6 +12,9 @@
 | REAL TIME LOOP & SPEED CONTROL                | 97DB SPEAKER                    |
 | TACTILE EFFECTS                               | 3.5 MM JACK, USB-C POWER & DATA |
 | SAVE, PLAYBACK, & DOWNLOAD  MIXES             | 8GB STORAGE                     |
+
+
+### **About this App**
 
 The Stem Player Explorer is a multi-platform desktop application written in Python particularly utilizing the PyQT5 library for its user interface that I'm working on for fun :smiley: The goal is to be an organized and informative desktop version of the Stem Player [website](https://stemplayer.com). 
 
