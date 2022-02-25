@@ -61,3 +61,9 @@ If a single device is found, the app will read all albums from the Stem Player:
 Upon selecting an album, the contents of the config file will be displayed next to all downloaded songs from said album.
 
 ![Album View - Image](/docs/img/withsongs.JPG)
+
+## :briefcase: License
+
+This project was created under the [GNU General Public License v3](https://choosealicense.com/licenses/gpl-3.0/). Why?
+
+> **"Fuck all this dick swinging contest. We all gon be dead in 100 Years. Let the kids have the music."** - _Kanye West, Stem Player creator_
