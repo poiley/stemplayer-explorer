@@ -54,13 +54,18 @@ class main_window(QWidget):
         for i, album in enumerate(self.player.library.albums):
             album_item = QRadioButton(album.metadata['title'], self)
             album_item.toggled.connect(lambda checked, i=i: self.album_selected(self.player.library.albums[i].dir))
-            self.album_grid.addWidget(album_item, 0, row)
+            self.album_grid.addWidget(album_item, row, 0)
             row += 1
-        self.grid.addLayout(self.album_grid, 0, 1)
+
+        self.left_column = QGridLayout()
+        self.left_column.addLayout(self.album_grid, 0, 0)
+        
+        self.grid.addLayout(self.left_column, 1, 0)
 
         self.album_info = QLabel('', self)
         self.album_info.setWordWrap(True)
         self.album_info.setFixedWidth(300)
+        self.album_info.setMargin(25)
         self.album_info.setFont(QFont('Avant Garde', 12))
 
         self.track_info = QLabel('', self)
@@ -68,7 +73,7 @@ class main_window(QWidget):
         self.track_info.setFixedWidth(300)
         self.track_info.setFont(QFont('Avant Garde', 12))
 
-        self.grid.addWidget(self.album_info, 1, 0)
+        self.left_column.addWidget(self.album_info, 1, 0)
         self.grid.addWidget(self.track_info, 1, 1)
     
     @pyqtSlot()
@@ -84,6 +89,12 @@ class main_window(QWidget):
         track_info_text = ''
         for track in tracks_obj:
             track_info_text += ' - {}\n'.format(track.metadata['metadata']['title'])
-
-        self.album_info.setText(str(album_obj.metadata))
+        
+        album_info_str = ''
+        for metadata_object_key in album_obj.metadata:
+            album_info_str += '{}\t{}\n'.format(
+                metadata_object_key.capitalize(), 
+                album_obj.metadata[metadata_object_key] )
+        
+        self.album_info.setText(album_info_str)
         self.track_info.setText(track_info_text)
