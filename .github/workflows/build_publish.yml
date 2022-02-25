@@ -16,10 +16,8 @@ jobs:
           - os: macos-latest
             TARGET: macos
             CMD_BUILD: |
-                pyinstaller -F -n stemplayer-explorer -D main.py
-                cd dist/
-                zip -r9 stemplayer-explorer stemplayer-explorer.app/
-            OUT_FILE_NAME: stemplayer-explorer/stemplayer-explorer.zip
+                pyinstaller --windowed -F -n stemplayer-explorer -D main.py
+            OUT_FILE_NAME: stemplayer-explorer
           - os: windows-latest
             TARGET: windows
             CMD_BUILD: pyinstaller -F -n stemplayer-explorer -D main.py
