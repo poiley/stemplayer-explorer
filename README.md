@@ -36,6 +36,10 @@ python -m venv env
 ## MacOS and Linux
 source env/bin/activate
 
+## Linux Only
+sudo apt-get install python3-pyqt5 pyqt5-dev pyqt5-dev-tools
+export DISPLAY=:0
+
 # Install Python packages
 pip install -r requirements.txt
 ```

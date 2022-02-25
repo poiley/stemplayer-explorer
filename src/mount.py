@@ -2,29 +2,26 @@ import os
 import platform
 import re
 import subprocess
-import wmi
 
 os_str = platform.system()
 
 def get_devices():
-    device_re = re.compile(b"Bus\s+(?P<bus>\d+)\s+Device\s+(?P<device>\d+).+ID\s(?P<id>\w+:\w+)\s(?P<tag>.+)$", re.I)
     devices = []
 
     if os_str == 'Windows':
         print('OS Detected: Windows')
+        import wmi
         devices = wmi.WMI().Win32_LogicalDisk(VolumeName="STEM PLAYER")
     elif os_str == 'Darwin':
         print('OS Detected: macOS')
     elif os_str == 'Linux':
         print('OS Detected: Linux')
-        for usb_device in subprocess.check_output("lsusb").split(b'\n'):
-            if usb_device:
-                info = device_re.match(usb_device)
-                if info:
-                    dinfo = info.groupdict()
-                    dinfo['device'] = '/dev/bus/usb/%s/%s' % (dinfo.pop('bus'), dinfo.pop('device'))
-                    if dinfo['id'] == '1209:572a':
-                        devices.append(dinfo)
+        for scsi_device in os.popen("lsblk -S").read().split('\n'):
+            if scsi_device and "Kano" in scsi_device:
+                partition = '{}1'.format(scsi_device.split(' ')[0])
+                mount_point = os.popen("mount | grep {}".format(partition)).read().split(' ')[2:4]
+                devices.append(' '.join(mount_point))
+
     else:
         print('Unable to detect OS')
     return devices

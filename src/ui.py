@@ -37,17 +37,17 @@ class main_window(QWidget):
         else:
             button_row = 1
             for i, device in enumerate(DEVICES):
-                device_button = QPushButton('Stem Player [{}]'.format(device.VolumeSerialNumber), self)    
+                device_button = QPushButton('Stem Player [{}]'.format(self.device), self)    
                 device_button.clicked.connect(lambda checked, i=i: self.device_selected(DEVICES[i]))
                 self.grid.addWidget(device_button, button_row, 1)
                 button_row += 1
 
     def tool(self):
-        self.title = QLabel('Device in use: Stem Player [{}]'.format(self.device.VolumeSerialNumber))
+        self.player = stem_player(self.device)
+
+        self.title = QLabel('Device in use: Stem Player [{}]'.format(self.player), self)
         self.title.setFont(QFont('Avant Garde', 15))
         self.grid.addWidget(self.title, 0, 0)
-
-        self.player = stem_player(self.device)
         
         self.album_grid = QGridLayout()
         row = 0
