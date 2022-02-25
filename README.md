@@ -40,7 +40,7 @@ python -m venv env
 source env/bin/activate
 
 ## Linux Only
-sudo apt-get install python3 python3-dev python3-pyqt5 pyqt5-dev pyqt5-dev-tools
+sudo apt-get install python3 python3-dev xcb python3-pyqt5 pyqt5-dev pyqt5-dev-tools
 export DISPLAY=:0
 
 # Install Python packages
