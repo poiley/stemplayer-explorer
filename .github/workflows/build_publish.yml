@@ -38,19 +38,26 @@ jobs:
         include:
           - os: macos-latest
             TARGET: macos
+            TARGET_FORMATTED: MacOS
             CMD_BUILD: |
                 pyinstaller --windowed -F -n stemplayer-explorer -D main.py
-            OUT_FILE_NAME: stemplayer-explorer
+                zip stemplayer-explorer-macos.zip -r dist/stemplayer-explorer/*
+            OUT_FILE_NAME: stemplayer-explorer-macos.zip
           - os: windows-latest
             TARGET: windows
-            CMD_BUILD: pyinstaller -F -n stemplayer-explorer -D main.py
-            OUT_FILE_NAME: stemplayer-explorer
+            TARGET_FORMATTED: Windows
+            CMD_BUILD: |
+                pyinstaller -F -n stemplayer-explorer -D main.py
+                tar.exe -a -c -f stemplayer-explorer-windows.zip dist\stemplayer-explorer\*
+            OUT_FILE_NAME: stemplayer-explorer-windows.zip
           - os: ubuntu-latest
             TARGET: linux
+            TARGET_FORMATTED: Linux
             CMD_BUILD: |
               sudo apt-get install python3 python3-dev xcb python3-pyqt5 pyqt5-dev pyqt5-dev-tools -y
               pyinstaller -F -n stemplayer-explorer -D main.py
-            OUT_FILE_NAME: stemplayer-explorer
+              zip stemplayer-explorer-linux.zip -r dist/stemplayer-explorer/*
+            OUT_FILE_NAME: stemplayer-explorer-linux.zip
 
     steps:
     - uses: actions/checkout@v2
@@ -88,6 +95,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.get_release_info.outputs.upload_url }}
-        asset_path: src/dist/${{ matrix.OUT_FILE_NAME}}
-        asset_name: ${{ matrix.OUT_FILE_NAME}}
+        asset_path: src/${{ matrix.OUT_FILE_NAME }}
+        asset_name: ${{ matrix.OUT_FILE_NAME }}
         asset_content_type: application/zip
